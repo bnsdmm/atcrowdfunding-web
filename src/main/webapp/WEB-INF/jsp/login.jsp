@@ -62,12 +62,7 @@
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script>
 		function dologin() {
-			var type = $(":selected").val();
-			if (type == "user") {
-				window.location.href = "main.html";
-			} else {
-				window.location.href = "member.html";
-			}
+			
 		}
 	</script>
 </body>
