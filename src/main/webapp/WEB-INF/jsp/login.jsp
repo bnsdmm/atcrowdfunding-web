@@ -26,20 +26,21 @@
 	</nav>
 
 	<div class="container">
-
-		<form class="form-signin" role="form">
+		<h1 style="color: red">${param.errorMsg}</h1>
+		<form id="loginForm" action="doLogin" method="post"
+			class="form-signin" role="form">
 			<h2 class="form-signin-heading">
 				<i class="glyphicon glyphicon-user"></i> 用户登录
 			</h2>
 			<div class="form-group has-success has-feedback">
 				<input type="text" class="form-control" id="loginacct"
-					placeholder="请输入登录账号" autofocus> <span
+					name="loginacct" placeholder="请输入登录账号" autofocus> <span
 					class="glyphicon glyphicon-user form-control-feedback"></span>
 			</div>
 			<div class="form-group has-success has-feedback">
 				<input type="text" class="form-control" id="userpswd"
-					placeholder="请输入登录密码" style="margin-top: 10px;"> <span
-					class="glyphicon glyphicon-lock form-control-feedback"></span>
+					name="userpswd" placeholder="请输入登录密码" style="margin-top: 10px;">
+				<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 			</div>
 			<div class="form-group has-success has-feedback">
 				<select class="form-control">
@@ -62,7 +63,20 @@
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script>
 		function dologin() {
-			
+			//非空校验
+			var loginacct = $("#loginacct").val();
+			//表单元素的value取值不会为null,取值为字符串
+			if (loginacct == "") {
+				alert("用户登录账号不能为空，请输入");
+				return;
+			}
+			var userpswd = $("#userpswd").val();
+			if (userpswd == "") {
+				alert("用户登录密码不能为空，请输入");
+				rseturn;
+			}
+
+			$("#loginForm").submit();
 		}
 	</script>
 </body>
