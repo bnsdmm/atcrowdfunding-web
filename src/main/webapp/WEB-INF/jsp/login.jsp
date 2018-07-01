@@ -8,9 +8,9 @@
 <meta name="description" content="">
 <meta name="keys" content="">
 <meta name="author" content="">
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/font-awesome.min.css">
-<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="${APP_PATH}/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${APP_PATH}/css/font-awesome.min.css">
+<link rel="stylesheet" href="${APP_PATH}/css/login.css">
 <style>
 </style>
 </head>
@@ -61,22 +61,63 @@
 	</div>
 	<script src="jquery/jquery-2.1.1.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="layer/layer.js"></script>
 	<script>
 		function dologin() {
 			//非空校验
 			var loginacct = $("#loginacct").val();
 			//表单元素的value取值不会为null,取值为字符串
 			if (loginacct == "") {
-				alert("用户登录账号不能为空，请输入");
+				//alert("用户登录账号不能为空，请输入");
+				layer.msg("用户登录账号不能为空，请输入", {
+					time : 1000,
+					icon : 5,
+					shift : 6
+				}, function() {
+
+				});
 				return;
 			}
 			var userpswd = $("#userpswd").val();
 			if (userpswd == "") {
-				alert("用户登录密码不能为空，请输入");
+				layer.msg("用户登录账号不能为空，请输入", {
+					time : 1000,
+					icon : 5,
+					shift : 6
+				}, function() {
+
+				});
 				rseturn;
 			}
 
-			$("#loginForm").submit();
+			//$("#loginForm").submit();
+			var loadingIndex;
+			$.ajax({
+				type : "POST",
+				url : "doAjaxLogin",
+				data : {
+					"loginacct" : loginacct,
+					"userpswd" : userpswd
+				},
+				beforeSend : function() {
+					loadingIndex = layer.msg('处理中', {
+						icon : 16
+					});
+				},
+				success : function(result) {
+					layer.close(loadingIndex);
+					if(result.success){
+						window.location.href="main";
+					}else{
+						layer.msg("用户登录账号或密码不正确，请输入", {
+							time : 1000,
+							icon : 5,
+							shift : 6
+						})
+					}
+				}
+			});
+
 		}
 	</script>
 </body>
