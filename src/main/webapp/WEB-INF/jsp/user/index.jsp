@@ -239,14 +239,13 @@ table tbody td:nth-child(even) {
 						var pageContent = "";
 						var userPage = result.data;
 						var users = userPage.datas;
-						
-						$.each(users,function(i,users){
+						$.each(users,function(i,user){
 						tableContent+='<tr>';
 						tableContent+='	<td>'+(i+1)+'</td>';
 						tableContent+='	<td><input type="checkbox"></td>';
 						tableContent+='	<td>'+user.loginacct+'</td>';
 						tableContent+='	<td>'+user.username+'</td>';
-						tableContent+='	<td>'+user.email'</td>';
+						tableContent+='	<td>'+user.email+'</td>';
 						tableContent+='	<td>';
 						tableContent+='		<button type="button" class="btn btn-success btn-xs">';
 						tableContent+='			<i class=" glyphicon glyphicon-check"></i>';
@@ -263,18 +262,18 @@ table tbody td:nth-child(even) {
 						if(pageno>1){
 							pageContent+='<li><a href="#" onclick="pageQuery('+(pageno-1)+')">上一页</a></li>';
 						}
-						for(var i=1;i<userPage.totalno;i++){
+						for(var i=1;i<=userPage.totalno;i++){
 							if(i==pageno){
-								pageContent+='<li class="active"><a href="#" onclick="pageQuery('+i+')">'+i+'</a></li>';
+								pageContent+='<li class="active"><a href="#">'+i+'</a></li>';
 							}else{
 								pageContent+='<li><a href="#" onclick="pageQuery('+i+')">'+i+'</a></li>';
 							}
 						}
-						if(pageno<userPagetotalno){
+						if(pageno<userPage.totalno){
 							pageContent+='<li><a href="#" onclick="pageQuery('+(pageno+1)+')">下一页</a></li>';
 						}
-						$("userData").html(tableContent);
-						$("pagination").html(pageContent);
+						$("#userData").html(tableContent);
+						$(".pagination").html(pageContent);
 					} else {
 						layer.msg("用户信息分页查询失败", {
 							time : 1000,
