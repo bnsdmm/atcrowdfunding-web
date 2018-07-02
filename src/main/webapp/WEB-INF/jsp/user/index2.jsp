@@ -1,4 +1,5 @@
 <%@page pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -168,8 +169,28 @@ table tbody td:nth-child(even) {
 										<th width="100">操作</th>
 									</tr>
 								</thead>
-								<tbody id="userData">
+								<tbody>
+									<c:forEach items="${users}" var="user" varStatus="status">
+										<tr>
+											<td>${status.count}</td>
+											<td><input type="checkbox"></td>
+											<td>${user.loginacct}</td>
+											<td>${user.username}</td>
+											<td>${user.email}</td>
+											<td>
+												<button type="button" class="btn btn-success btn-xs">
+													<i class=" glyphicon glyphicon-check"></i>
+												</button>
+												<button type="button" class="btn btn-primary btn-xs">
+													<i class=" glyphicon glyphicon-pencil"></i>
+												</button>
+												<button type="button" class="btn btn-danger btn-xs">
+													<i class=" glyphicon glyphicon-remove"></i>
+												</button>
+											</td>
+										</tr>
 
+									</c:forEach>
 
 
 								</tbody>
@@ -177,7 +198,21 @@ table tbody td:nth-child(even) {
 									<tr>
 										<td colspan="6" align="center">
 											<ul class="pagination">
-
+												<c:if test="${pageno > 1}">
+													<li><a href="#" onclick="changePageno(${pageno-1})">上一页</a></li>
+												</c:if>
+												<c:forEach begin="1" end="${totalno}" varStatus="status">
+													<c:if test="${pageno == status.count}">
+														<li class="active"><a href="#">${status.count}</a></li>
+													</c:if>
+													<c:if test="${pageno != status.count}">
+														<li><a href="#"
+															onclick="changePageno(${status.count})">${status.count}</a></li>
+													</c:if>
+												</c:forEach>
+												<c:if test="${pageno < totalno}">
+													<li><a href="#" onclick="changePageno(${pageno+1})">下一页</a></li>
+												</c:if>
 											</ul>
 										</td>
 									</tr>
@@ -194,7 +229,6 @@ table tbody td:nth-child(even) {
 	<script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 	<script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${APP_PATH}/script/docs.min.js"></script>
-	<script src="${APP_PATH}/layer/layer.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$(".list-group-item").click(function() {
@@ -207,7 +241,6 @@ table tbody td:nth-child(even) {
 					}
 				}
 			});
-			pageQuery(1);
 		});
 		$("tbody .btn-success").click(function() {
 			window.location.href = "assignRole.html";
@@ -216,39 +249,11 @@ table tbody td:nth-child(even) {
 			window.location.href = "edit.html";
 		});
 
-		//分页查询
-		function pageQuery(pageno) {
-			var loadingIndex = null;
-			$.ajax({
-				type : "POST",
-				url : "${APP_PATH}/user/pageQuery",
-				data : {
-					"pageno" : pageno,
-					"pagesize" : 2
-				},
-				beforeSend : function() {
-					loadingIndex = layer.msg('处理中', {
-						icon : 16
-					});
-				},
-				success : function(result) {
-					layer.close(loadingIndex);
-					if (result.success) {
-						//局部刷新页面数据
-						var tableContent="";
-						var pageContent="";
-						$("userData").html(tableContent);
-						$("pagination").html(pageContent);
-					} else {
-						layer.msg("用户信息分页查询失败", {
-							time : 1000,
-							icon : 5,
-							shift : 6
-						})
-					}
-				}
-			});
+		//翻页
+		function changePageno(pageno){
+			window.location.href="${APP_PATH}/user/index1?pageno="+pageno;
 		}
+
 	</script>
 </body>
 </html>

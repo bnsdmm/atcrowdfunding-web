@@ -91,7 +91,7 @@
 			}
 
 			//$("#loginForm").submit();
-			var loadingIndex;
+			var loadingIndex=null;
 			$.ajax({
 				type : "POST",
 				url : "doAjaxLogin",
