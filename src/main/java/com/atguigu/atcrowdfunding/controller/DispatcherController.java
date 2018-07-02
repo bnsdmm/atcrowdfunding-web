@@ -1,16 +1,12 @@
 package com.atguigu.atcrowdfunding.controller;
 
 import java.io.UnsupportedEncodingException;
-
-import javax.mail.Session;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.atguigu.atcrowdfunding.bean.AjaxResult;
 import com.atguigu.atcrowdfunding.bean.User;
 import com.atguigu.atcrowdfunding.service.UserService;
