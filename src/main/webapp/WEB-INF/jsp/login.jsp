@@ -80,7 +80,7 @@
 			}
 			var userpswd = $("#userpswd").val();
 			if (userpswd == "") {
-				layer.msg("用户登录账号不能为空，请输入", {
+				layer.msg("用户登录密码不能为空，请输入", {
 					time : 1000,
 					icon : 5,
 					shift : 6
@@ -94,7 +94,7 @@
 			var loadingIndex=null;
 			$.ajax({
 				type : "POST",
-				url : "doAjaxLogin",
+				url : "${APP_PATH}/doAjaxLogin",
 				data : {
 					"loginacct" : loginacct,
 					"userpswd" : userpswd

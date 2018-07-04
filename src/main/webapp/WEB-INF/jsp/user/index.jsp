@@ -281,6 +281,9 @@ table tbody td:nth-child(even) {
 													tableContent += '	</td>';
 													tableContent += '</tr>';
 												});
+								if (pageno <= 1) {
+									pageContent += '<li class="disabled"><a>上一页</a></li>';
+								}
 								if (pageno > 1) {
 									pageContent += '<li><a href="#" onclick="pageQuery('
 											+ (pageno - 1) + ')">上一页</a></li>';
@@ -293,6 +296,9 @@ table tbody td:nth-child(even) {
 										pageContent += '<li><a href="#" onclick="pageQuery('
 												+ i + ')">' + i + '</a></li>';
 									}
+								}
+								if (pageno >= userPage.totalno) {
+									pageContent += '<li class="disabled"><a>下一页</a></li>';
 								}
 								if (pageno < userPage.totalno) {
 									pageContent += '<li><a href="#" onclick="pageQuery('
